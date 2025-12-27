@@ -1,0 +1,651 @@
+<Prefab>
+	<Constants>
+		<Constant Name="Encyclopedia.Frame.Width" BrushLayer="Default" BrushName="Encyclopedia.Frame" BrushValueType="Width" />
+		<Constant Name="Encyclopedia.Frame.Height" BrushLayer="Default" BrushName="Encyclopedia.Frame" BrushValueType="Height" />
+
+		<Constant Name="Top.Height" Value="240" />
+		<Constant Name="Top.VerticalDivider.Height" Value="!Top.Height" />
+		<Constant Name="Top.VerticalDivider.Width" Value="15" />
+		<Constant Name="Top.VerticalDivider.Thin.Width" Value="7" />
+
+		<Constant Name="Reference.AlphaFactor" Value="0" />
+	</Constants>
+	<Window>
+		<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Sprite="BlankWhiteSquare_9" Color="#000000CC">
+			<Standard.PopupCloseButton HorizontalAlignment="Center" VerticalAlignment="Center" MarginTop="940" Command.Click="Close" Parameter.ButtonText="Leave" />
+			<Children>
+
+				<!--Background-->
+				<BrushWidget Id="TownManagementPopup" DoNotAcceptEvents="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Encyclopedia.Frame.Width" SuggestedHeight="!Encyclopedia.Frame.Height" HorizontalAlignment="Center" VerticalAlignment="Center" MarginBottom="35" Brush="Encyclopedia.Frame" ReserveManagementPopup="ReservePopup">
+					<Children>
+						<!--title-->
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="590" SuggestedHeight="155" HorizontalAlignment="Center" VerticalAlignment="Top" PositionXOffset="6" PositionYOffset="-18" Sprite="StdAssets\tabbar_popup" IsDisabled="true">
+							<Children>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" PositionYOffset="-25" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="46" IsDisabled="true" Text="Unit Editor" />
+							</Children>
+						</Widget>
+
+						<!--Copy-->
+						<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" Brush="ButtonBrush1" MarginTop="100" Command.Click="CopyTemplate" IsEnabled="true">
+							<Children>
+								<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="32" Text="     Copy Template     " />
+							</Children>
+						</ButtonWidget>
+
+						<!-- points left -->
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="300" PositionYOffset="200" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Points Left :" />
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="470" PositionYOffset="200" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="@PointsLeft" />
+
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="300" PositionYOffset="170" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Skill Level Cap :" />
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="510" PositionYOffset="170" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="@SkillLevelCap" />
+						
+						<ListPanel DoNotAcceptEvents="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="550" SuggestedWidth="1500" VerticalAlignment="Center">
+							<Children>
+								<Panel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" HorizontalAlignment="Left" VerticalAlignment="Center" SuggestedHeight="550" SuggestedWidth="400">
+								<Children>
+									<!-- unit name -->
+									<ListPanel DataSource="{Name}" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" SuggestedWidth="250"	HorizontalAlignment="Left" MarginLeft="120"	MarginTop="5" StackLayout.LayoutMethod="VerticalBottomToTop">
+										<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="100" SuggestedWidth="250" HorizontalAlignment="Left" VerticalAlignment="Top"	Brush.FontSize="32" Text="@Item"/>
+										</ItemTemplate>
+									</ListPanel>
+									<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="40"	MarginTop="45" Brush="ButtonBrush2" Command.Click="Rename" IsEnabled="true">
+										<Children>
+											<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren"	HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="16" Text="Rename" />
+										</Children>
+									</ButtonWidget>
+									
+								<CharacterTableauWidget DataSource="{UnitCharacter}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="400" SuggestedHeight="530"	HorizontalAlignment="Left" VerticalAlignment="Top"	BodyProperties="@BodyProperties" IsFemale="@IsFemale" EquipmentCode="@EquipmentCode" CharStringId="@CharStringId" StanceIndex="@StanceIndex" BannerCodeText="@BannerCodeText" MountCreationKey="@MountCreationKey" IsEnabled="false" ArmorColor1="@ArmorColor1"	ArmorColor2="@ArmorColor2"/>
+
+									<!-- unit tier -->
+									<ListPanel DataSource="{PropertiesList}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="5">
+										<ItemTemplate>
+											<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="32" SuggestedHeight="32" HorizontalAlignment="Right" VerticalAlignment="Top" PositionXOffset="-1" PositionYOffset="2" MarginLeft="10" Sprite="@Text">
+												<Children>
+													<HintWidget DataSource="{Hint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+												</Children>
+											</Widget>
+										</ItemTemplate>
+									</ListPanel>
+									
+								</Children>
+								</Panel>
+								
+								<!-- stat icons -->
+								<GridWidget DataSource="{Skills}" WidthSizePolicy = "CoverChildren" HeightSizePolicy = "CoverChildren" DefaultCellWidth="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" DefaultCellHeight="60" ColumnCount="1"	StackLayout.LayoutMethod="BottomToTop">
+									<ItemTemplate>
+										<SkillIconVisualWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy="StretchToParent" SkillId="@SkillId" MarginBottom="20" UseSmallestVariation="true" MarginLeft="5">
+											<Children>
+												<TextWidget WidthSizePolicy = "StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="20" IntText="@SkillValue" VerticalAlignment="Bottom" HorizontalAlignment="Center" Brush="Encyclopedia.Skill.Text"	Brush.FontSize="20" PositionYOffset="20"  ClipContents="false"/>
+											</Children>
+										</SkillIconVisualWidget>
+									</ItemTemplate>
+								</GridWidget>
+								<!-- stat change menu -->
+								<ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" HorizontalAlignment="Left" VerticalAlignment="Top" SuggestedHeight="550" SuggestedWidth="200" MarginLeft="30" MarginTop="80">
+									<Children>
+										<!-- stats header -->
+										<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="-30" MarginTop="-50" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Stats" />
+										
+										<!-- one handed -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" MarginLeft="-40" MarginTop="-10">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20"  VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="OneHandPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="OneHandMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- two hand-->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="50" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="TwoHandPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="TwoHandMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true"														WidthSizePolicy="CoverChildren"	HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- polearm -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="110" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="PolearmPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="PolearmMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- bow -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="170" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="BowPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="BowMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- crossbow -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="230" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="CrossbowPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="CrossbowMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- throwing -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="290" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="ThrowingPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ThrowingMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- riding -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="410" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="RidingPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="RidingMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+
+										<!-- athletics -->
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"	VerticalAlignment="Top" MarginTop="350" MarginLeft="-75">
+											<Children>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" VerticalAlignment="Top" Brush="ButtonBrush1" Command.Click="AthleticsPlus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="+" />
+													</Children>
+												</ButtonWidget>
+												<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="20" MarginLeft="35" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="AthleticsMinus" IsEnabled="true">
+													<Children>
+														<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="-" />
+													</Children>
+												</ButtonWidget>
+											</Children>
+										</ListPanel>
+									</Children>
+								</ListPanel>
+								
+								<!-- weapon & mount menu -->
+								<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" HorizontalAlignment="Left" VerticalAlignment="Top" SuggestedHeight="550" SuggestedWidth="400" MarginLeft="-100" MarginTop="70">
+									<Children>
+
+										<!-- Weapon Header -->
+										<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="30" MarginTop="-40"	Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" Text="Weapons" />
+
+										<NavigatableListPanel DataSource="{Weapon1}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="8" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeWep1" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{Weapon1Name}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Weapon2}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="60" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="68" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeWep2" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{Weapon2Name}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="60" MarginLeft="140" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Weapon3}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="120" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="128" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeWep3" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{Weapon3Name}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="120" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Weapon4}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="180" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="188" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeWep4" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{Weapon4Name}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="180" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<!-- Mount Header -->
+										<RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" SuggestedWidth="100" MarginTop="300" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" Text="Mount" MarginLeft="30"/>
+
+										<NavigatableListPanel DataSource="{Mount}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="360" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="368" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeMount" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{MountName}" WidthSizePolicy="CoverChildren"	HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="360" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Harness}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="420" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="428" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeHarness" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{HarnessName}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="420" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+									</Children>
+								</Widget>
+
+								<!-- armor menu -->
+								<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" HorizontalAlignment="Left" VerticalAlignment="Top" SuggestedHeight="550" SuggestedWidth="400" MarginLeft="50" MarginTop="70">
+									<Children>
+
+										<!-- Armor Header -->
+										<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="50" MarginTop="-40"	Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" Text="Armor" />
+
+										<NavigatableListPanel DataSource="{Helmet}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="8" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeHelmet" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{HelmetName}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Cape}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="60" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="68" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeCape" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{CapeName}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="60" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Chest}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="120" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="128" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeChestArmor" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{ChestName}" WidthSizePolicy="CoverChildren"	HeightSizePolicy="CoverChildren" VerticalAlignment="Top"	HorizontalAlignment="Left" MarginTop="120" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Gloves}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="180" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="188" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeGloves" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{GlovesName}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top"	HorizontalAlignment="Left" MarginTop="180" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<NavigatableListPanel DataSource="{Boots}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="240" StackLayout.LayoutMethod="VerticalBottomToTop">
+											<ItemTemplate>
+												<EquipmentTypeVisualBrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" HorizontalAlignment="Left" MarginLeft="15" MarginBottom="5" Brush="EquipmentType.Image" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsVisible="@HasItem" Type="@Type" />
+											</ItemTemplate>
+										</NavigatableListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="248" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeBoots" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{BootsName}" WidthSizePolicy="CoverChildren"	HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="240" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+										<!-- Appearance Header -->
+										<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" MarginTop="300" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" Text="Appearance" MarginLeft="80"/>
+
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="360" StackLayout.LayoutMethod="VerticalBottomToTop">
+										</ListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="368" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeCulture" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{CultureString}" WidthSizePolicy="CoverChildren"							HeightSizePolicy="CoverChildren" VerticalAlignment="Top"									HorizontalAlignment="Left" MarginTop="360"													StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="398" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeNavalSoldier" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Toggle" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{NavalString}" WidthSizePolicy="CoverChildren"							HeightSizePolicy="CoverChildren" VerticalAlignment="Top"									HorizontalAlignment="Left" MarginTop="390"													StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="420" StackLayout.LayoutMethod="VerticalBottomToTop">
+										</ListPanel>
+										<ButtonWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="80" MarginTop="428" VerticalAlignment="Top" Brush="ButtonBrush2" Command.Click="ChangeGender" IsEnabled="true">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText"	Brush.FontSize="20"	Text="Edit" />
+											</Children>
+										</ButtonWidget>
+										<ListPanel DataSource="{GenderString}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left" MarginTop="420" StackLayout.LayoutMethod="VerticalBottomToTop" MarginLeft="140">
+											<ItemTemplate>
+												<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left"	Brush.FontSize="16" Text="@Item" MarginTop="10"/>
+											</ItemTemplate>
+										</ListPanel>
+
+
+
+
+									</Children>
+								</Widget>							
+							</Children>
+						</ListPanel>
+
+						<!-- Upgrades-->
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="170" PositionYOffset="730" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Upgrades To" />
+
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="410" PositionYOffset="730" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Upgraded From" />
+
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginLeft="100" MarginTop="780">
+							<Children>
+								<ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="123" SuggestedHeight="150">
+									<Children>
+										<ButtonWidget Command.Click="Upgrade1Link" WidthSizePolicy = "Fixed" HeightSizePolicy = "Fixed" SuggestedHeight="89" SuggestedWidth="123" HorizontalAlignment="Center" Brush="Encyclopedia.SubPage.Element" Command.HoverBegin="ExecuteBeginHint1"	Command.HoverEnd="ExecuteEndHint">
+										<Children>
+											<ImageIdentifierWidget Id="ElementImage" DataSource="{ImageIdentifier1}" DoNotAcceptEvents="true" WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" ImageId="@Id" AdditionalArgs="@AdditionalArgs" TextureProviderName="@TextureProviderName" HorizontalAlignment="Center" MarginRight="3" MarginLeft="3" MarginBottom="3" MarginTop="3"/>
+											</Children>
+										</ButtonWidget>
+										<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="48" SuggestedWidth="123" MarginLeft="-123" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="UpgradeButtonClick1" IsEnabled="@IsEnabled">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="@UpgradeButton1" />
+											</Children>
+										</ButtonWidget>
+									</Children>
+								</ListPanel>
+
+								<ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="123" SuggestedHeight="150" MarginLeft="50">
+									<Children>
+										<ButtonWidget Command.Click="Upgrade2Link" WidthSizePolicy = "Fixed" HeightSizePolicy = "Fixed" SuggestedHeight="89" SuggestedWidth="123" HorizontalAlignment="Center" Brush="Encyclopedia.SubPage.Element" Command.HoverBegin="ExecuteBeginHint2"	Command.HoverEnd="ExecuteEndHint">
+											<Children>
+												<ImageIdentifierWidget Id="ElementImage" DataSource="{ImageIdentifier2}" DoNotAcceptEvents="true" WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" ImageId="@Id" AdditionalArgs="@AdditionalArgs" TextureProviderName="@TextureProviderName" HorizontalAlignment="Center" MarginRight="3" MarginLeft="3" MarginBottom="3" MarginTop="3"/>
+											</Children>
+										</ButtonWidget>
+										<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="48" SuggestedWidth="123" MarginLeft="-123" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="UpgradeButtonClick2" IsEnabled="@IsEnabled">
+											<Children>
+												<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="@UpgradeButton2" />
+											</Children>
+										</ButtonWidget>
+									</Children>
+								</ListPanel>
+
+								<ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="123" SuggestedHeight="150" MarginLeft="50">
+									<Children>
+										<ButtonWidget Command.Click="RootLink" WidthSizePolicy = "Fixed" HeightSizePolicy = "Fixed" SuggestedHeight="89" SuggestedWidth="123" HorizontalAlignment="Center" Brush="Encyclopedia.SubPage.Element" Command.HoverBegin="ExecuteBeginHint3"	Command.HoverEnd="ExecuteEndHint">
+											<Children>
+												<ImageIdentifierWidget Id="ElementImage" DataSource="{ImageIdentifier3}" DoNotAcceptEvents="true" WidthSizePolicy = "StretchToParent" HeightSizePolicy = "StretchToParent" ImageId="@Id" AdditionalArgs="@AdditionalArgs" TextureProviderName="@TextureProviderName" HorizontalAlignment="Center" MarginRight="3" MarginLeft="3" MarginBottom="3" MarginTop="3"/>
+											</Children>
+										</ButtonWidget>
+									</Children>
+								</ListPanel>
+							</Children>
+						</ListPanel>
+
+						<!-- Filter -->
+						<!-- Filter -->
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="770" PositionYOffset="730" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Equipment Filter Options" />
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="600" MarginTop="780">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush2" Command.Click="ItemTierClear" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Clear" />
+									</Children>
+								</ButtonWidget>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="60" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="ItemTierChange" IsEnabled="true" MarginLeft="35">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Change" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Tier : " MarginLeft="20" MarginTop="5"/>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="@ItemTierFilter" MarginLeft="0" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="600" MarginTop="820">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush2" Command.Click="FilterCultureClear" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Clear" />
+									</Children>
+								</ButtonWidget>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="60" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="FilterCultureChange" IsEnabled="true" MarginLeft="35">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Change" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Culture : " MarginLeft="20" MarginTop="5"/>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="@CultureFilter" MarginLeft="0" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="600" MarginTop="860">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush2" Command.Click="FilterWeaponClear" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Clear" />
+									</Children>
+								</ButtonWidget>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="60" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="FilterWeaponChange" IsEnabled="true" MarginLeft="35">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Change" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Weapon Types : " MarginLeft="20" MarginTop="5"/>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="@WeaponFilter" MarginLeft="0" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="600" MarginTop="900">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush2" Command.Click="FilterArmourClear" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Clear" />
+									</Children>
+								</ButtonWidget>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="60" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="ButtonBrush1" Command.Click="FilterArmourChange" IsEnabled="true" MarginLeft="35">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="Change" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Armour Types : " MarginLeft="20" MarginTop="5"/>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="@ArmourFilter" MarginLeft="0" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<!-- Settings -->
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="1100" PositionYOffset="10" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="Settings" />
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="1000" PositionYOffset="50">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="@Disable_1_Brush" Command.Click="Toggle1" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="@Disable_1_Text" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Disable Gear Restrictions" MarginLeft="20" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="1000" PositionYOffset="90">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="@Disable_2_Brush" Command.Click="Toggle2" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="@Disable_2_Text" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Disable Skill Total Restrictions" MarginLeft="20" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+						<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="40" PositionXOffset="1000" PositionYOffset="130">
+							<Children>
+								<ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="40" SuggestedWidth="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Brush="@Disable_3_Brush" Command.Click="Toggle3" IsEnabled="true">
+									<Children>
+										<RichTextWidget DoNotAcceptEvents="true" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="OverlayPopup.ButtonText" Brush.FontSize="20" Text="@Disable_3_Text" />
+									</Children>
+								</ButtonWidget>
+								<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Recruitment.Popup.Title.Text" Brush.FontSize="24" IsDisabled="true" Text="Disable Skill Cap Restrictions" MarginLeft="20" MarginTop="5"/>
+							</Children>
+						</ListPanel>
+
+						<!-- Set selection buttons -->
+						<ListPanel DataSource="{EquipmentSetSelector}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" StackLayout.LayoutMethod="HorizontalLeftToRight" MarginTop="690" MarginLeft="70">
+							<Children>
+
+								<ButtonWidget DoNotPassEventsToChildren="true" Command.Click="ExecuteSelectPreviousItem" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" UpdateChildrenStates="true">
+									<Children>
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" UpdateChildrenStates="true">
+											<Children>
+												<ImageWidget HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="48" SuggestedWidth="41" VerticalAlignment="Bottom" MarginRight="5" Brush="ButtonRightBigArrowBrush1"/>
+											</Children>
+										</ListPanel>
+									</Children>
+								</ButtonWidget>
+
+								<TextWidget DataSource="{..}" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="200" VerticalAlignment="Center" Brush="Encyclopedia.EquipmentSet.Text" Text="@EquipmentSetText" />
+
+								<ButtonWidget DoNotPassEventsToChildren="true" Command.Click="ExecuteSelectNextItem" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" UpdateChildrenStates="true">
+									<Children>
+										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" UpdateChildrenStates="true">
+											<Children>
+												<ImageWidget HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="48" SuggestedWidth="41" VerticalAlignment="Bottom" MarginRight="5" Brush="ButtonLeftBigArrowBrush1"/>
+											</Children>
+										</ListPanel>
+									</Children>
+								</ButtonWidget>
+
+							</Children>
+						</ListPanel>
+						<RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="600" PositionYOffset="200" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="32" IsDisabled="true" Text="@EquipmentSetTotalCost" />
+
+					</Children>
+				</BrushWidget>
+
+				
+				<!--Close Encyclopedia Button-->
+				<ButtonWidget Command.Click="Close" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="100" SuggestedWidth="100" VerticalAlignment="Center" HorizontalAlignment="Center" PositionYOffset="-465" MarginLeft="1440" Brush="Popup.CloseButton"/>
+
+			</Children>
+		</Widget>
+	</Window>
+</Prefab>

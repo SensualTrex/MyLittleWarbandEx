@@ -1,0 +1,5 @@
+<Brushes>
+	<Brush Name="MyLittleWarbandEx.Tooltip.SmallText" Font="Galahad" FontSize="10">
+		<Style Name="Default" FontSize="14"/>
+	</Brush>
+</Brushes>
